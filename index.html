@@ -56,8 +56,8 @@
     <label for="code">รหัส Code</label>
     <div class="row">
       <input type="text" id="code" placeholder="เช่น A234567" autocomplete="off" />
-      <button id="btn">ตรวจสอบ</button> <button id="save" title="บันทึกผลการค้นหาปัจจุบัน">บันทึกผล</button>
-            </div>
+      <button id="btn">ตรวจสอบ</button>
+    </div>
 
     <div id="result" class="result" style="display:none;"></div>
   </div>
@@ -109,24 +109,3 @@
   </script>
 </body>
 </html>
-
-<script>
-(function(){
-  const saveBtn=document.getElementById('save');
-  const codeEl=document.getElementById('code');
-  const toCSV=(rows)=>rows.map(r=>r.map(x=> '"'+String(x).replace(/"/g,'""')+'"').join(',')).join('
-');
-  function save(){
-    const code=String(codeEl.value||'').trim().toUpperCase();
-    const rec=(code&&typeof index!=='undefined')? index.get(code): null;
-    const now=new Date(); const ts=now.toISOString();
-    const header=['Code','Name','Chance','ExportedAt'];
-    const row=rec? [rec.Code||'', rec.Name||'', rec.chance||0, ts] : [code,'',0,ts];
-    const csv=toCSV([header,row]);
-    const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-    a.download=`le_mans_lookup_${now.toISOString().replace(/[:.]/g,'-')}.csv`; a.click();
-  }
-  if(saveBtn) saveBtn.addEventListener('click', save);
-})();
-)</script>
