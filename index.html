@@ -1,0 +1,132 @@
+
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ตรวจสอบจำนวนสิทธิ์การจับฉลากรายการ เลอม็อง 2026 (Le Mans) ณ ประเทศฝรั่งเศส</title>
+  <style>
+    :root {
+      --bg: #0f172a; /* slate-900 */
+      --card: #111827; /* gray-900 */
+      --muted: #475569; /* slate-400 */
+      --text: #111827; /* gray-200 */
+      --accent: #22c55e; /* green-500 */
+      --danger: #ef4444; /* red-500 */
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, 'Noto Sans Thai', 'Noto Sans Thai Looped', sans-serif;
+      background: #1f2937;
+  background-image: linear-gradient(rgba(31,41,55,0.7), rgba(31,41,55,0.7)), url('image-20.png');
+  background-size: cover; background-position: center; background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      display: grid; place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%; max-width: 600px; background:#ffffff; border:1px solid #e5e7eb;
+      border-radius: 16px; padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      backdrop-filter: blur(6px);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.5rem; }
+    p.subtitle { margin: 0 0 20px; color: var(--muted); }
+    label { display:block; margin: 12px 0 6px; color: var(--muted); font-size: .95rem; }
+    .row { display:flex; gap:12px; align-items: center; }
+    input[type=text]{ flex:1; padding:12px 14px; border-radius:12px; border:1px solid #cbd5e1; background:#ffffff; color:#111827; outline:none; font-size:1rem; }
+    input[type=text]:focus { border-color:#475569; box-shadow: 0 0 0 3px rgba(34,197,94,.15); }
+    button { padding: 12px 16px; border-radius: 12px; border:1px solid #16a34a; background: linear-gradient(180deg,#22c55e,#16a34a); color: #ffffff; font-weight:600; cursor:pointer; }
+    button:disabled { opacity:.6; cursor:not-allowed; }
+    .result{ margin-top:18px; padding:16px; border-radius:12px; background:#ffffff; border:1px solid #e5e7eb; }
+    .ok { border-color: #14532d; }
+    .err { border-color: #7f1d1d; }
+    .field { display:flex; justify-content: space-between; margin: 6px 0; }
+    .label{ color:#334155; }
+    .value { font-weight:700; }
+    .footer { margin-top: 18px; color: var(--muted); font-size: .85rem; text-align:center; }
+  button:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(22,163,74,0.25); border-color:#15803d; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>ตรวจสอบจำนวนสิทธิ์การจับฉลากรายการ เลอม็อง 2026 (Le Mans) ณ ประเทศฝรั่งเศส</h1>
+    <p class="subtitle">กรอกรหัส Code ของร้านค้าเพื่อดูชื่อร้านและจำนวนสิทธิ์ที่ได้รับ</p>
+
+    <label for="code">รหัส Code</label>
+    <div class="row">
+      <input type="text" id="code" placeholder="เช่น A234567" autocomplete="off" />
+      <button id="btn">ตรวจสอบ</button> <button id="save" title="บันทึกผลการค้นหาปัจจุบัน">บันทึกผล</button>
+            </div>
+
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    // Inline data generated from the Excel file
+    const DATA = [{"Code":"A208968","Name":"บจ.อึ้งประภากรเทรดดิ้ง","chance":1},{"Code":"A209216","Name":"อ๋าอะไหล่","chance":5},{"Code":"A219863","Name":"บริษัท สากลปิโตรเลียม 1987 จำกัด","chance":4},{"Code":"A220128","Name":"ร้านวัฒนากิจยนต์","chance":2},{"Code":"A220323","Name":"คุณวิสันต์ ศรัทธาพร","chance":1},{"Code":"A220908","Name":"บจ.จิตต์อะไหล่รวมยนต์","chance":1},{"Code":"A221039","Name":"บริษัท ศรีสยามกลการ จำกัด","chance":73},{"Code":"A221284","Name":"อู่สว่างพร","chance":2},{"Code":"A221833","Name":"ช. เอราวัณอะไหล่","chance":2},{"Code":"A222283","Name":"สามแยกกระจับอะไหล่ยนต์","chance":1},{"Code":"A227058","Name":"จิวอะไหล่ยนต์","chance":2},{"Code":"A227376","Name":"บริษัท สหยนต์กลการ (สิงห์บุรี) จำกัด","chance":1},{"Code":"A227789","Name":"ช.อะไหล่ยนต์","chance":1},{"Code":"A228941","Name":"หจก.ช.ทุ่งสงอะไหล่","chance":3},{"Code":"A246428","Name":"บริษัท ชัยเจริญเทรดดิ้ง 1992 จำกัด","chance":1},{"Code":"A247888","Name":"อ.อะไหล่ยนต์","chance":1},{"Code":"A258867","Name":"บริษัท พี.ซี.อะไหล่ยนต์ จำกัด","chance":1},{"Code":"A258912","Name":"หจก.ชัยกลการร้อยเอ็ด","chance":1},{"Code":"A336865","Name":"บริษัท แพร่อุดมเทรดดิ้ง จำกัด","chance":4},{"Code":"A420075","Name":"บริษัท บี.โชคนำชัยอะไหล่ยนต์ จำกัด","chance":3},{"Code":"A494260","Name":"ห้างหุ้นส่วนจำกัด วัฒนาผ้าเบรค","chance":1},{"Code":"A530623","Name":"อู่.รัตนยนต์","chance":2},{"Code":"A671062","Name":"พูลทรัพย์แบตเตอรี่","chance":1},{"Code":"A671095","Name":"ทรัพย์สิน","chance":1},{"Code":"A676549","Name":"คุณธัญสุดา ผู้ศรัทธาธรรม","chance":1},{"Code":"A682758","Name":"ทวีพลอะหลั่ย","chance":1},{"Code":"A683128","Name":"บริษัท ฟ้าคลองสามอะไหล่ยนต์-ฟ้าเจริญยนต์ จำกัด","chance":1},{"Code":"A690709","Name":"ห้างหุ้นส่วนจำกัด ค็อกพิท บุญเลิศ เซอร์วิส","chance":1},{"Code":"A691162","Name":"นายพุฒิพงศ์ สิทธาพานิช","chance":1},{"Code":"A692391","Name":"เอพี ออยด์ ออโต้พาร์ท","chance":1},{"Code":"A693856","Name":"ห้างหุ้นส่วนจำกัด หงส์แดงออยล์ หาดใหญ่","chance":3},{"Code":"A699693","Name":"ร้านอะไหล่ดีเยี่ยม","chance":1},{"Code":"A701242","Name":"ศิริชัยยนต์","chance":1},{"Code":"A701904","Name":"บริษัท ชุมพรกระจกรถยนต์ จำกัด","chance":1},{"Code":"A702148","Name":"อู่ สิทธิพร การช่าง","chance":1},{"Code":"A702745","Name":"ห้างหุ้นส่วนจำกัด ดิยางยนต์ สตูล (2022)","chance":1},{"Code":"A721814","Name":"บริษัท เฟื่องเจริญยนต์ จำกัด","chance":1}];
+
+    // Build a quick index by code (case-insensitive)
+    const index = new Map();
+    for (const r of DATA) {
+      if (!r.Code) continue;
+      index.set(String(r.Code).trim().toUpperCase(), r);
+    }
+
+    const $ = (q) => document.querySelector(q);
+    const codeInput = '#code';
+  </script>
+  <script>
+    const codeEl = document.querySelector('#code');
+    const btn = document.querySelector('#btn');
+    const result = document.querySelector('#result');
+
+    function show(data) {
+      result.style.display = 'block';
+      if (!data) {
+        result.className = 'result err';
+        result.innerHTML = '<div style="color:#fecaca">❌ ไม่พบรหัสนี้ในระบบ</div>';
+        return;
+      }
+      result.className = 'result ok';
+      const shopName = data.Name ?? '-';
+      const chance = data.chance ?? 0;
+      result.innerHTML = `
+        <div class="field"><span class="label">ชื่อร้าน</span><span class="value">${shopName}</span></div>
+        <div class="field"><span class="label">จำนวนสิทธิ์จับฉลาก</span><span class="value">${Number(chance).toLocaleString('th-TH')}</span></div>
+      `;
+    }
+
+    function lookup() {
+      const code = String(codeEl.value || '').trim().toUpperCase();
+      if (!code) { show(null); return; }
+      const rec = index.get(code);
+      show(rec || null);
+    }
+
+    btn.addEventListener('click', lookup);
+    codeEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') lookup(); });
+  </script>
+</body>
+</html>
+
+<script>
+(function(){
+  const saveBtn=document.getElementById('save');
+  const codeEl=document.getElementById('code');
+  const toCSV=(rows)=>rows.map(r=>r.map(x=> '"'+String(x).replace(/"/g,'""')+'"').join(',')).join('
+');
+  function save(){
+    const code=String(codeEl.value||'').trim().toUpperCase();
+    const rec=(code&&typeof index!=='undefined')? index.get(code): null;
+    const now=new Date(); const ts=now.toISOString();
+    const header=['Code','Name','Chance','ExportedAt'];
+    const row=rec? [rec.Code||'', rec.Name||'', rec.chance||0, ts] : [code,'',0,ts];
+    const csv=toCSV([header,row]);
+    const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download=`le_mans_lookup_${now.toISOString().replace(/[:.]/g,'-')}.csv`; a.click();
+  }
+  if(saveBtn) saveBtn.addEventListener('click', save);
+})();
+)</script>
